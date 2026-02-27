@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  auth:
+    build: ./auth-service
+    container_name: auth-container
+    ports:
+      - "8080:8080"
+
+  workout:
+    build: ./workout-service
+    container_name: workout-container
+    ports:
+      - "8081:8081"
+
+  stats:
+    build: ./stats-service
+    container_name: stats-container
+    ports:
+      - "8082:8082"
