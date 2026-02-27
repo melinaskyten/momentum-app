@@ -1,20 +1,93 @@
 version: '3.8'
 
 services:
-  auth:
-    build: ./auth-service
+  auth-db:
+    image: postgres:15
+    container_name: auth-db
+    environment:
+      POSTGRES_DB: ${AUTH_DB_NAME}
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
     container_name: auth-container
+    depends_on:
+      - auth-db
+    environment:
+      - AUTH_DB_HOST=${AUTH_DB_HOST}
+      - AUTH_DB_PORT=${AUTH_DB_PORT}
+      - AUTH_DB_NAME=${AUTH_DB_NAME}
+      - AUTH_DB_USER=${AUTH_DB_USER}
+      - AUTH_DB_PASSWORD=${AUTH_DB_PASSWORD}
     ports:
       - "8080:8080"
 
-  workout:
-    build: ./workout-service
-    container_name: workout-container
+  workout-db:
+    image: postgres:15
+    container_name: workout-db
+    environment:
+      POSTGRES_DB: ${WORKOUT_DB_NAME}
+      POSTGRES_USER: ${WORKOUT_DB_USER}
+      POSTGRES_PASSWORD: ${WORKOUT_DB_PASSWORD}
     ports:
-      - "8081:8081"
+      - "5433:5432"
+    volumes:
+      - workout-db-data:/var/lib/postgresql/data
 
-  stats:
-    build: ./stats-service
-    container_name: stats-container
+  workout-service:
+    build:
+      context: ./workout-service
+      dockerfile: Dockerfile
+    container_name: workout-container
+    depends_on:
+      - workout-db
+    environment:
+      - WORKOUT_DB_HOST=${WORKOUT_DB_HOST}
+      - WORKOUT_DB_PORT=${WORKOUT_DB_PORT}
+      - WORKOUT_DB_NAME=${WORKOUT_DB_NAME}
+      - WORKOUT_DB_USER=${WORKOUT_DB_USER}
+      - WORKOUT_DB_PASSWORD=${WORKOUT_DB_PASSWORD}
     ports:
-      - "8082:8082"
+      - "8081:8080"
+
+  stats-db:
+    image: postgres:15
+    container_name: stats-db
+    environment:
+      POSTGRES_DB: ${STATS_DB_NAME}
+      POSTGRES_USER: ${STATS_DB_USER}
+      POSTGRES_PASSWORD: ${STATS_DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      - stats-db-data:/var/lib/postgresql/data
+
+  stats-service:
+    build:
+      context: ./stats-service
+      dockerfile: Dockerfile
+    container_name: stats-container
+    depends_on:
+      - stats-db
+      - auth-service
+      - workout-service
+    environment:
+      - STATS_DB_HOST=${STATS_DB_HOST}
+      - STATS_DB_PORT=${STATS_DB_PORT}
+      - STATS_DB_NAME=${STATS_DB_NAME}
+      - STATS_DB_USER=${STATS_DB_USER}
+      - STATS_DB_PASSWORD=${STATS_DB_PASSWORD}
+    ports:
+      - "8082:8080"
+
+volumes:
+  auth-db-data:
+  workout-db-data:
+  stats-db-data:
