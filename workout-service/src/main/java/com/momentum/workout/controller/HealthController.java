@@ -12,5 +12,4 @@ public class HealthController {
     public String health (){
         return "Workout service is running";
     }
-
 }

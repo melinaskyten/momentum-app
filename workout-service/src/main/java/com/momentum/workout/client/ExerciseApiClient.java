@@ -2,6 +2,7 @@ package com.momentum.workout.client;
 
 import com.momentum.workout.dto.ExternalExerciseDTO;
 import com.momentum.workout.dto.ExternalExerciseResponse;
+import com.momentum.workout.dto.ExternalExerciseSingleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -57,11 +58,33 @@ public class ExerciseApiClient {
             return response != null ? response.getData() : List.of();
 
         } catch (WebClientResponseException e) {
-            System.err.println("API returned error: " + e.getResponseBodyAsString());
+            logger.error("External API returned error. Status code: {} Body: {}",
+                    e.getStatusCode(),
+                    e.getResponseBodyAsString());
             return List.of();
         } catch (Exception e) {
-            System.err.println("API call failed: " + e.getMessage());
+            logger.error("Unexpected error when calling external API: {}", e.getMessage());
             return List.of();
+        }
+    }
+
+    public ExternalExerciseDTO getExerciseById(String id) {
+        try{
+            ExternalExerciseSingleResponse response = webClient.get()
+                    .uri("/exercises/{id}", id)
+                    .retrieve()
+                    .bodyToMono(ExternalExerciseSingleResponse.class)
+                    .block();
+
+            return response != null ? response.getData() : null;
+        } catch (WebClientResponseException e) {
+            logger.error("External API returned error. Status code: {} Body: {}",
+                    e.getStatusCode(),
+                    e.getResponseBodyAsString());
+            return null;
+        } catch (Exception e) {
+            logger.error("Unexpected error when fetching exercise: {}", e.getMessage());
+            return null;
         }
     }
 }
