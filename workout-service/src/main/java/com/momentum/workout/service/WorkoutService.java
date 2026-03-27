@@ -4,6 +4,7 @@ import com.momentum.workout.dto.*;
 import com.momentum.workout.entity.Exercise;
 import com.momentum.workout.entity.Set;
 import com.momentum.workout.entity.Workout;
+import com.momentum.workout.mapper.WorkoutMapper;
 import com.momentum.workout.repository.WorkoutRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class WorkoutService {
 
     private final ExerciseService exerciseService;
     private final WorkoutRepository workoutRepository;
+    private final WorkoutMapper workoutMapper;
 
     @Transactional
     public Workout createWorkout(WorkoutDTO request) {
@@ -70,4 +72,13 @@ public class WorkoutService {
 
         return workoutRepository.save(workout);
     }
+
+    public List<WorkoutDTO> getWorkoutByUserId(Long userId) {
+        List<Workout> workouts = workoutRepository.findByUserId(userId);
+
+        return workouts.stream()
+                .map(workoutMapper::toDTO)
+                .toList();
+    }
+
 }
