@@ -1,6 +1,5 @@
 package com.momentum.workout.controller;
 
-import com.momentum.workout.dto.ExternalExerciseDTO;
 import com.momentum.workout.dto.WorkoutDTO;
 import com.momentum.workout.entity.Workout;
 import com.momentum.workout.mapper.WorkoutMapper;

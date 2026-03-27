@@ -51,6 +51,8 @@ public class WorkoutService {
                     ? dto.getEquipments().get(0)
                     : null);
 
+            exercise.setInstructions(dto.getInstructions());
+
             exercise.setWorkout(workout);
 
             List<Set> sets = new ArrayList<>();
