@@ -20,6 +20,9 @@ public class Exercise {
     private String bodyPart;
     private String equipment;
 
+    @ElementCollection (fetch = FetchType.EAGER)
+    private List<String> instructions;
+
     @OneToMany (mappedBy = "exercise", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Set> sets;
@@ -28,5 +31,4 @@ public class Exercise {
     @JoinColumn (name = "workout_id")
     @JsonBackReference
     private Workout workout;
-
 }
