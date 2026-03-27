@@ -20,4 +20,8 @@ public class ExerciseService {
     public List<ExternalExerciseDTO> getExercisesBySearch(String query) {
         return exerciseApiClient.getExercisesBySearch(query);
     }
+
+        public ExternalExerciseDTO getExerciseById(String id) {
+        return exerciseApiClient.getExerciseById(id);
+    }
 }
