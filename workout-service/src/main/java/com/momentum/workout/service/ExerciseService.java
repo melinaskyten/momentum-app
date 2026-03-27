@@ -30,4 +30,10 @@ public class ExerciseService {
         System.out.println("DEBUG: Fetching exercise by id from API");
         return exerciseApiClient.getExerciseById(id);
     }
+
+    @CacheEvict (value = "exerciseBySearch", allEntries = true)
+    public void evictCacheBySearch(String query) {}
+
+    @CacheEvict (value = "exerciseById", allEntries = true)
+    public void evictCacheById(String id) {}
 }
