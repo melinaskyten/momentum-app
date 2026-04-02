@@ -7,6 +7,7 @@ import com.momentum.workout.dto.ExternalExerciseResponse;
 import com.momentum.workout.dto.ExternalExerciseSingleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -25,9 +26,9 @@ public class ExerciseApiClient {
     private final WebClient webClient;
     private static final Logger logger = LoggerFactory.getLogger(ExerciseApiClient.class);
 
-    public ExerciseApiClient() {
+    public ExerciseApiClient(@Value("${exercise.api.base-url}") String baseUrl) {
         this.webClient = WebClient.builder()
-                .baseUrl("https://exercisedb.dev/api/v1")
+                .baseUrl(baseUrl)
                 .build();
     }
 
