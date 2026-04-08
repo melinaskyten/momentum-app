@@ -21,13 +21,11 @@ public class ExerciseService {
 
     @Cacheable (value = "exerciseBySearch", key = "#query")
     public List<ExternalExerciseDTO> getExercisesBySearch(String query) {
-        System.out.println("DEBUG: Fetching exercise by search from API");
         return exerciseApiClient.getExercisesBySearch(query);
     }
 
     @Cacheable (value = "exerciseById", key = "#id")
     public ExternalExerciseDTO getExerciseById(String id) {
-        System.out.println("DEBUG: Fetching exercise by id from API");
         return exerciseApiClient.getExerciseById(id);
     }
 

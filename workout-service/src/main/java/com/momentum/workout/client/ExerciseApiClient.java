@@ -37,21 +37,20 @@ public class ExerciseApiClient {
                 .uri(uriFunction)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse ->
-                        clientResponse.bodyToMono(String.class).map(body -> {
+                        clientResponse.bodyToMono(String.class).flatMap(body -> {
                             logger.warn("4xx error: {}", body);
-                            return new ExternalClientException("Client Error: " + body);
+                            return Mono.error(new ExternalClientException("Client Error: " + body));
                         })
                 )
                 .onStatus(HttpStatusCode::is5xxServerError, clientResponse ->
-                        clientResponse.bodyToMono(String.class).map(body -> {
+                        clientResponse.bodyToMono(String.class).flatMap(body -> {
                             logger.warn("5xx error: {}", body);
-                            return new ExternalServerException("Server Error: " + body);
+                            return Mono.error(new ExternalServerException("Server Error: " + body));
                         })
                 );
     }
 
     public List<ExternalExerciseDTO> getExercises() {
-        try {
             ExternalExerciseResponse response = prepareRequest(uriBuilder ->
                     uriBuilder
                             .path("/exercises")
@@ -60,23 +59,14 @@ public class ExerciseApiClient {
                     .timeout(Duration.ofSeconds(3))
                     .retryWhen(
                             Retry.backoff(3, Duration.ofMillis(500))
-                                    .filter(throwable -> throwable instanceof ExternalServerException)
-                    )
-                    .onErrorResume(e -> {
-                        logger.error("Unexpected error when fetching exercise: {}", e.getMessage(), e);
-                        return Mono.empty();
-                    })
+                                    .filter(throwable -> throwable instanceof ExternalServerException))
+                    .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
                     .block();
 
             return response != null ? response.getData() : List.of();
-        }catch (Exception e) {
-            logger.error("Unexpected error when fetching exercises: {}", e.getMessage());
-            return List.of();
-        }
     }
 
     public List<ExternalExerciseDTO> getExercisesBySearch(String query) {
-        try {
             ExternalExerciseResponse response = prepareRequest(uriBuilder ->
                     uriBuilder
                             .path("/exercises")
@@ -88,21 +78,13 @@ public class ExerciseApiClient {
                             Retry.backoff(3, Duration.ofMillis(500))
                                     .filter(throwable -> throwable instanceof ExternalServerException)
                     )
-                    .onErrorResume(e -> {
-                        logger.error("API call failed when fetching exercises by search {}: {}", query, e.getMessage(), e);
-                        return Mono.empty();
-                    })
+                    .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
                     .block();
 
             return response != null ? response.getData() : List.of();
-        }catch (Exception e) {
-            logger.error("Unexpected error when fetching exercises: {}", e.getMessage(), e);
-            return List.of();
-        }
     }
 
     public ExternalExerciseDTO getExerciseById(String id) {
-        try {
             ExternalExerciseSingleResponse response = prepareRequest(uriBuilder ->
                     uriBuilder
                             .path("/exercises/{id}")
@@ -113,16 +95,9 @@ public class ExerciseApiClient {
                             Retry.backoff(3, Duration.ofMillis(500))
                                     .filter(throwable -> throwable instanceof ExternalServerException)
                     )
-                    .onErrorResume(e -> {
-                        logger.error("API call failed when fetching exercise by id {}: {}", id, e.getMessage(), e);
-                        return Mono.empty();
-                    })
+                    .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
                     .block();
 
             return response != null ? response.getData() : null;
-        }catch (Exception e) {
-            logger.error("Unexpected error when fetching exercise: {}", e.getMessage(), e);
-            return null;
-        }
     }
 }
