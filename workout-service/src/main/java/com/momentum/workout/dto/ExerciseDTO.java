@@ -6,6 +6,9 @@ import java.util.List;
 
 @Data
 public class ExerciseDTO {
+
+    private long id;
+
     private String exerciseId;
     private String name;
     private List<String> bodyParts;

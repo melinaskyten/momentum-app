@@ -29,6 +29,8 @@ public class WorkoutMapper {
     private ExerciseDTO exerciseToDTO(Exercise exercise) {
         ExerciseDTO exerciseDTO = new ExerciseDTO();
 
+        exerciseDTO.setId(exercise.getId());
+
         exerciseDTO.setExerciseId(exercise.getExternalExerciseId());
         exerciseDTO.setName(exercise.getExerciseName());
 
@@ -53,6 +55,7 @@ public class WorkoutMapper {
         List<SetDTO> sets = exercise.getSets() != null
                 ? exercise.getSets().stream().map(set -> {
             SetDTO setDTO = new SetDTO();
+            setDTO.setId(set.getId());
             setDTO.setReps(set.getReps());
             setDTO.setWeight(set.getWeight());
             return setDTO;

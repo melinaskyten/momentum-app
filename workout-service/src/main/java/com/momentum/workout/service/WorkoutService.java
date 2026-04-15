@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +23,6 @@ public class WorkoutService {
 
     private final ExerciseService exerciseService;
     private final WorkoutRepository workoutRepository;
-    private final WorkoutMapper workoutMapper;
 
     @Transactional
     public Workout createWorkout(WorkoutDTO request) {
@@ -75,12 +77,71 @@ public class WorkoutService {
         return workoutRepository.save(workout);
     }
 
-    public List<WorkoutDTO> getWorkoutByUserId(Long userId) {
-        List<Workout> workouts = workoutRepository.findByUserId(userId);
+    @Transactional
+    public Workout updateWorkout(Long workoutId, WorkoutDTO request) {
+        Workout workout = workoutRepository
+                .findById(workoutId)
+                .orElseThrow(() -> new RuntimeException("Workout not found"));
 
-        return workouts.stream()
-                .map(workoutMapper::toDTO)
-                .toList();
+        Map<Long, Exercise> existingExercises = workout.getExercises()
+                .stream()
+                .collect(Collectors.toMap(Exercise::getId, e -> e));
+
+        List<Exercise> updatedExercises = new ArrayList<>();
+
+        for (ExerciseDTO exerciseDTO : request.getExercises()) {
+            Exercise exercise;
+
+            if (exerciseDTO.getExerciseId() != null && existingExercises.containsKey(exerciseDTO.getExerciseId())) {
+                exercise = existingExercises.get(exerciseDTO.getId());
+            } else {
+                exercise = new Exercise();
+                exercise.setWorkout(workout);
+            }
+
+            exercise.setExternalExerciseId(exerciseDTO.getExerciseId());
+            exercise.setExerciseName(exerciseDTO.getName());
+            exercise.setBodyPart(exerciseDTO.getBodyParts() != null && !exerciseDTO.getBodyParts().isEmpty()
+                    ? exerciseDTO.getBodyParts().get(0) : null);
+            exercise.setEquipment(exerciseDTO.getEquipments() != null && !exerciseDTO.getEquipments().isEmpty()
+                    ? exerciseDTO.getEquipments().get(0) : null);
+            exercise.setInstructions(exerciseDTO.getInstructions() != null
+                    ? exerciseDTO.getInstructions() : List.of());
+
+            Map<Long, Set> existingSets = exercise.getSets() != null
+                    ? exercise.getSets().stream().collect(Collectors.toMap(Set::getId, s -> s))
+                    : new HashMap<>();
+
+            List<Set> updatedSets = new ArrayList<>();
+
+            for (SetDTO setDTO : exerciseDTO.getSets()) {
+
+                Set set;
+                if (setDTO.getId() != null && existingSets.containsKey(setDTO.getId())) {
+                    set = existingSets.get(setDTO.getId());
+                } else {
+                    set = new Set();
+                    set.setExercise(exercise);
+                }
+
+                set.setReps(setDTO.getReps());
+                set.setWeight(setDTO.getWeight());
+
+                updatedSets.add(set);
+            }
+
+            exercise.setSets(updatedSets);
+            updatedExercises.add(exercise);
+        }
+
+        workout.getExercises().clear();
+        workout.getExercises().addAll(updatedExercises);
+
+        return workoutRepository.save(workout);
+    }
+
+    public List<Workout> getWorkoutByUserId(Long userId) {
+        return workoutRepository.findByUserId(userId);
     }
 
 }
