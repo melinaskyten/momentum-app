@@ -18,7 +18,7 @@ public class Workout {
     private Long userId;
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Exercise> exercises;
 

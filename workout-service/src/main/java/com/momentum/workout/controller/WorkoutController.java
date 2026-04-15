@@ -17,7 +17,7 @@ public class WorkoutController {
     private final WorkoutService workoutService;
     private final WorkoutMapper workoutMapper;
 
-    @PostMapping("/create")
+    @PostMapping
     public WorkoutDTO createWorkout (@RequestBody WorkoutDTO workoutDto) {
         Workout savedWorkout = workoutService.createWorkout(workoutDto);
         return workoutMapper.toDTO(savedWorkout);
@@ -25,6 +25,15 @@ public class WorkoutController {
 
     @GetMapping
     public List<WorkoutDTO> getWorkoutByUserId(@RequestParam Long userId) {
-        return workoutService.getWorkoutByUserId(userId);
+        return workoutService.getWorkoutByUserId(userId)
+                .stream()
+                .map(workoutMapper::toDTO)
+                .toList();
+    }
+
+    @PutMapping ("/{id}")
+    public WorkoutDTO updateWorkout (@PathVariable Long id,
+                                     @RequestBody WorkoutDTO workoutDto) {
+        return workoutMapper.toDTO(workoutService.updateWorkout(id, workoutDto));
     }
 }

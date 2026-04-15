@@ -19,11 +19,12 @@ public class Exercise {
     private String exerciseName;
     private String bodyPart;
     private String equipment;
+    private String gifUrl;
 
     @ElementCollection (fetch = FetchType.EAGER)
     private List<String> instructions;
 
-    @OneToMany (mappedBy = "exercise", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Set> sets;
 
