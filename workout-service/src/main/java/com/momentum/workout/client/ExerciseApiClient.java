@@ -1,7 +1,7 @@
 package com.momentum.workout.client;
 
-import com.momentum.workout.Exception.ExternalClientException;
-import com.momentum.workout.Exception.ExternalServerException;
+import com.momentum.workout.exception.ExternalClientException;
+import com.momentum.workout.exception.ExternalServerException;
 import com.momentum.workout.dto.ExternalExerciseDTO;
 import com.momentum.workout.dto.ExternalExerciseResponse;
 import com.momentum.workout.dto.ExternalExerciseSingleResponse;
