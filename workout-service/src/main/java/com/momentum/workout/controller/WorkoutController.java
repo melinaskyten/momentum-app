@@ -3,9 +3,12 @@ package com.momentum.workout.controller;
 import com.momentum.workout.dto.WorkoutDTO;
 import com.momentum.workout.entity.Workout;
 import com.momentum.workout.mapper.WorkoutMapper;
+import com.momentum.workout.repository.WorkoutRepository;
 import com.momentum.workout.service.WorkoutService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class WorkoutController {
 
     private final WorkoutService workoutService;
     private final WorkoutMapper workoutMapper;
+    private final WorkoutRepository workoutRepository;
 
     @PostMapping
     public WorkoutDTO createWorkout (@RequestBody WorkoutDTO workoutDto) {
@@ -36,4 +40,14 @@ public class WorkoutController {
                                      @RequestBody WorkoutDTO workoutDto) {
         return workoutMapper.toDTO(workoutService.updateWorkout(id, workoutDto));
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteWorkout (@PathVariable Long id) {
+        if (!workoutRepository.existsById(id)) {
+            throw new RuntimeException("Workout not found: " + id);
+        }
+        workoutService.deleteWorkout(id);
+    }
+
 }

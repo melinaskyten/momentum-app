@@ -144,4 +144,9 @@ public class WorkoutService {
         return workoutRepository.findByUserId(userId);
     }
 
+    @Transactional
+    public void deleteWorkout(Long workoutId) {
+        workoutRepository.deleteById(workoutId);
+    }
+
 }
