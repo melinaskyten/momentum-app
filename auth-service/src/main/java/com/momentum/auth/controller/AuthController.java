@@ -3,12 +3,11 @@ package com.momentum.auth.controller;
 import com.momentum.auth.dto.AuthResponse;
 import com.momentum.auth.dto.LoginRequest;
 import com.momentum.auth.dto.RegisterRequest;
+import com.momentum.auth.dto.UserResponse;
 import com.momentum.auth.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -27,4 +26,9 @@ public class AuthController {
        return authService.login(loginRequest);
     }
 
+    @GetMapping("/me")
+    public UserResponse getProfile(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        return authService.getProfile(userId);
+    }
 }

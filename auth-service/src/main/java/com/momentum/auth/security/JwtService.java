@@ -1,4 +1,4 @@
-package com.momentum.auth.service;
+package com.momentum.auth.security;
 
 import com.momentum.auth.entity.User;
 import io.jsonwebtoken.Claims;
