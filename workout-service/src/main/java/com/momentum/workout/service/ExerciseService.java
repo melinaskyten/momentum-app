@@ -1,7 +1,7 @@
 package com.momentum.workout.service;
 
 import com.momentum.workout.client.ExerciseApiClient;
-import com.momentum.workout.dto.ExternalExerciseDTO;
+import com.momentum.workout.dto.external.ExternalExerciseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

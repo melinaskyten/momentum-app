@@ -1,4 +1,4 @@
-package com.momentum.workout.dto;
+package com.momentum.workout.dto.external;
 
 import lombok.Data;
 
