@@ -5,11 +5,15 @@ import com.momentum.auth.Role;
 import com.momentum.auth.dto.AuthResponse;
 import com.momentum.auth.dto.LoginRequest;
 import com.momentum.auth.dto.RegisterRequest;
+import com.momentum.auth.dto.UserResponse;
 import com.momentum.auth.entity.User;
 import com.momentum.auth.repository.UserRepository;
+import com.momentum.auth.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class AuthService {
 
     public AuthResponse register (RegisterRequest registerRequest) {
         User user = new User();
+        user.setCreatedAt(LocalDateTime.now());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setRole(Role.USER);
@@ -37,5 +42,11 @@ public class AuthService {
         }
 
         return new AuthResponse(jwtService.generateToken(user));
+    }
+
+    public UserResponse getProfile (Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return new UserResponse(user.getEmail(), user.getCreatedAt());
     }
 }
