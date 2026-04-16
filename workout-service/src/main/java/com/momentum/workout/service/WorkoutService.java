@@ -1,10 +1,10 @@
 package com.momentum.workout.service;
 
 import com.momentum.workout.dto.*;
+import com.momentum.workout.dto.external.ExternalExerciseDTO;
 import com.momentum.workout.entity.Exercise;
 import com.momentum.workout.entity.Set;
 import com.momentum.workout.entity.Workout;
-import com.momentum.workout.mapper.WorkoutMapper;
 import com.momentum.workout.repository.WorkoutRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +25,9 @@ public class WorkoutService {
     private final WorkoutRepository workoutRepository;
 
     @Transactional
-    public Workout createWorkout(WorkoutDTO request) {
+    public Workout createWorkout(WorkoutDTO request, Long userId) {
         Workout workout = new Workout();
-        workout.setUserId(request.getUserId());
+        workout.setUserId(userId);
         workout.setDate(LocalDateTime.now());
 
         List<Exercise> exercises = new ArrayList<>();
@@ -78,10 +78,14 @@ public class WorkoutService {
     }
 
     @Transactional
-    public Workout updateWorkout(Long workoutId, WorkoutDTO request) {
+    public Workout updateWorkout(Long workoutId, WorkoutDTO request, Long userId) {
         Workout workout = workoutRepository
                 .findById(workoutId)
                 .orElseThrow(() -> new RuntimeException("Workout not found"));
+
+        if (!workout.getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized");
+        }
 
         Map<Long, Exercise> existingExercises = workout.getExercises()
                 .stream()
@@ -145,7 +149,14 @@ public class WorkoutService {
     }
 
     @Transactional
-    public void deleteWorkout(Long workoutId) {
+    public void deleteWorkout(Long workoutId, Long userId) {
+        Workout workout = workoutRepository
+                .findById(workoutId)
+                .orElseThrow(() -> new RuntimeException("Workout not found"));
+
+        if (!workout.getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized");
+        }
         workoutRepository.deleteById(workoutId);
     }
 

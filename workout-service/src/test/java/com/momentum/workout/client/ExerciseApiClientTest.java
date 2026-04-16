@@ -1,9 +1,9 @@
 package com.momentum.workout.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.momentum.workout.dto.ExternalExerciseDTO;
-import com.momentum.workout.dto.ExternalExerciseResponse;
-import com.momentum.workout.dto.ExternalExerciseSingleResponse;
+import com.momentum.workout.dto.external.ExternalExerciseDTO;
+import com.momentum.workout.dto.external.ExternalExerciseResponse;
+import com.momentum.workout.dto.external.ExternalExerciseSingleResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;

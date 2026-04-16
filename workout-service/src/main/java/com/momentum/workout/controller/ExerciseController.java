@@ -1,7 +1,7 @@
 package com.momentum.workout.controller;
 
 
-import com.momentum.workout.dto.ExternalExerciseDTO;
+import com.momentum.workout.dto.external.ExternalExerciseDTO;
 import com.momentum.workout.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

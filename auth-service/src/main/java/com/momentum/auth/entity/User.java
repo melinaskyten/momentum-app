@@ -3,6 +3,7 @@ package com.momentum.auth.entity;
 import com.momentum.auth.Role;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,4 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
-
-
 }

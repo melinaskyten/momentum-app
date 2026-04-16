@@ -2,9 +2,9 @@ package com.momentum.workout.client;
 
 import com.momentum.workout.exception.ExternalClientException;
 import com.momentum.workout.exception.ExternalServerException;
-import com.momentum.workout.dto.ExternalExerciseDTO;
-import com.momentum.workout.dto.ExternalExerciseResponse;
-import com.momentum.workout.dto.ExternalExerciseSingleResponse;
+import com.momentum.workout.dto.external.ExternalExerciseDTO;
+import com.momentum.workout.dto.external.ExternalExerciseResponse;
+import com.momentum.workout.dto.external.ExternalExerciseSingleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
