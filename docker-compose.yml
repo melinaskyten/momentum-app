@@ -87,6 +87,7 @@ services:
       - STATS_DB_NAME=${STATS_DB_NAME}
       - STATS_DB_USER=${STATS_DB_USER}
       - STATS_DB_PASSWORD=${STATS_DB_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
     ports:
       - "8082:8080"
 
@@ -94,3 +95,4 @@ volumes:
   auth-db-data:
   workout-db-data:
   stats-db-data:
+
