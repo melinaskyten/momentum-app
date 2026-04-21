@@ -1,7 +1,7 @@
 package com.momentum.auth.service;
 
 
-import com.momentum.auth.Role;
+import com.momentum.auth.entity.Role;
 import com.momentum.auth.dto.AuthResponse;
 import com.momentum.auth.dto.LoginRequest;
 import com.momentum.auth.dto.RegisterRequest;

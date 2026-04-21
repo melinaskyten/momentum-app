@@ -1,4 +1,4 @@
-package com.momentum.workout.security;
+package com.momentum.stats.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
