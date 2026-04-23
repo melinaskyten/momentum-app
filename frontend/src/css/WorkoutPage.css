@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.workout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 24px;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.page-title {
+    margin: 0 !important;
+    font-family: "Bebas Neue", sans-serif !important;
+    font-style: normal;
+    font-size: 30px !important;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #272626 !important;
+}
+
+.new-btn {
+    padding: 8px 16px;
+    border: 1px solid #272627;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #272627;
+    transition: all 0.2s;
+}
+
+.new-btn:hover {
+    background-color: #D9731A;
+    color: #ffffff;
+    border: 1px solid #D9731A;
+}
