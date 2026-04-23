@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.exercise-card {
+    background-color: #272626;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.exercise-name {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #ffffff;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #D9731A;
+    padding-bottom: 12px;
+}
+
+.sets-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sets-table th {
+    font-family: "Quicksand", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #D9731A;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid #333;
+}
+
+.sets-table td {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    color: #d8d7d7;
+    padding: 10px 12px;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.sets-table tr:last-child td {
+    border-bottom: none;
+}
+
+.sets-table tr:hover td {
+    background-color: #2f2f2f;
+}

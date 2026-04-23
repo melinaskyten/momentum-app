@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.page-title {
+    margin: 0 !important;
+    font-family: "Bebas Neue", sans-serif !important;
+    font-style: normal;
+    font-size: 30px !important;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #272626 !important;
+}
+
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 24px;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.exercise-grid-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 100%;
+}
+
+.save-footer {
+    padding: 20px 0px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-workout-btn {
+    padding: 8px 16px;
+    border: 1px solid #272627;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #272627;
+    transition: all 0.2s;
+}
+
+.save-workout-btn:hover {
+    background-color: #D9731A;
+    color: #ffffff;
+    border: 1px solid #D9731A;
+}
+
+
+
