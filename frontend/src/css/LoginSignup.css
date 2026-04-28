@@ -58,16 +58,6 @@ body {
     text-align: center;
 }
 
-.auth-title {
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #ffffff;
-    text-align: center;
-}
-
 .auth-toggle {
     display: flex;
     background-color: #1a1a1a;
@@ -190,4 +180,25 @@ body {
     background: rgba(255, 255, 255, 0.10);
     top: 50%;
     left: 60%;
+}
+
+.auth-logo-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.auth-logo-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgb(255, 255, 255, 0.4);
+}
+
+.auth-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    scale: 1.15;
 }

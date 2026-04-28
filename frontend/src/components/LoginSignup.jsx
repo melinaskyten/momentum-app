@@ -1,4 +1,5 @@
 import {useState} from "react";
+import logo from '../assets/logo.png'
 import '../css/LoginSignup.css'
 
 function LoginSignup() {
@@ -10,8 +11,12 @@ function LoginSignup() {
                 <div className="blur-ball ball-2"></div>
                 <div className="blur-ball ball-3"></div>
                 <div className="auth-card">
+                    <div className="auth-logo-wrapper">
+                        <div className="auth-logo-circle">
+                            <img src={logo} alt="Logo" className="auth-logo"/>
+                        </div>
+                    </div>
                     <h1 className="auth-brand">Momentum</h1>
-                    <h2 className="auth-title">{isLogin ? "Login" : "Signup"}</h2>
                     <div className="auth-toggle">
                         <button
                             className={`toggle-btn ${isLogin ? 'active' : ''}`}
