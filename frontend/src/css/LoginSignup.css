@@ -26,13 +26,26 @@ body {
     background-color: #272626;
 }
 
+.auth-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.0) 50%
+    );
+    pointer-events: none;
+}
+
 .auth-card {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     padding: 48px;
     width: 420px;
@@ -148,7 +161,7 @@ body {
 .form-input:-webkit-autofill,
 .form-input:-webkit-autofill:hover,
 .form-input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset;
+    -webkit-box-shadow: 0 0 0 1000px #1a1a1a inset;
     -webkit-text-fill-color: #ffffff;
     caret-color: #ffffff;
 }
