@@ -12,7 +12,11 @@
 }
 
 .modal-content {
-    background-color: #272626;
+    position: relative;
+    background-color: rgb(39, 38, 38, 0.9);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     padding: 32px;
     width: 500px;

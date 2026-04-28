@@ -7,20 +7,13 @@ body {
     overflow: hidden;
 }
 
-.auth-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: -40px;
-}
-
-.auth-content {
+.login-bg {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100vw;
     position: relative;
     overflow: hidden;
     background-color: #272626;
@@ -164,4 +157,37 @@ body {
     -webkit-box-shadow: 0 0 0 1000px #1a1a1a inset;
     -webkit-text-fill-color: #ffffff;
     caret-color: #ffffff;
+}
+
+/*blurry background*/
+.blur-ball {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ball-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.18);
+    top: -100px;
+    left: -80px;
+}
+
+.ball-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(200, 200, 200, 0.12);
+    bottom: -80px;
+    right: -60px;
+}
+
+.ball-3 {
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.10);
+    top: 50%;
+    left: 60%;
 }
