@@ -1,9 +1,35 @@
 import {useState} from "react";
 import logo from '../assets/logo.png'
 import '../css/LoginSignup.css'
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../context/AuthContext.jsx";
+import { login as loginApi, register as registerApi } from '../api/authApi.js'
 
 function LoginSignup() {
-    const [isLogin, setIsLogin] = useState(true)
+    const [isLogin, setIsLogin] = useState(true);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+
+    const { login: saveToken } = useAuth()
+    const navigate = useNavigate()
+
+    async function HandleSubmit (e){
+        e.preventDefault()
+        setError('')
+
+        try {
+            const data = isLogin
+                ? await loginApi(email, password)
+                : await registerApi(email, password)
+
+            saveToken(data.token)
+            navigate('/workouts')
+        } catch (error) {
+            setError('Wrong user details')
+        }
+    }
+
 
     return (
             <div className="login-bg">
@@ -30,15 +56,25 @@ function LoginSignup() {
                         </button>
                     </div>
 
-                    <form className="auth-form">
+                    <form className="auth-form" onSubmit={HandleSubmit}>
                         <div className="form-group">
                             <label className="form-label">Email</label>
-                            <input className="form-input" type="email" placeholder="email@address.com"/>
+                            <input className="form-input"
+                                   type="email"
+                                   placeholder="email@address.com"
+                                   value={email}
+                                   onChange={event => setEmail(event.target.value)}/>
                         </div>
                         <div className="form-group">
                             <label className="form-label">Password</label>
-                            <input className="form-input" type="password" placeholder="********"/>
+                            <input
+                                className="form-input"
+                                type="password"
+                                placeholder="********"
+                                value={password}
+                                onChange={event => setPassword(event.target.value)}/>
                         </div>
+                        {error && <p className="auth-error">{error}</p>}
                         <button type="submit" className="auth-submit-btn">
                             {isLogin ? 'Login' : 'Sign Up'}
                         </button>
