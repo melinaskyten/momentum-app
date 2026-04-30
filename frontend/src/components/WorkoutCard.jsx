@@ -13,7 +13,7 @@ function WorkoutCard({workout}) {
     return (
         <div className="workout-card">
             <div>
-                <h3>{workout.date}</h3>
+                <h3>{workout.date?.split('T')[0]}</h3>
                 <div className="workout-card-exercises">
                     {previewExercises.map((exercise, index) => (
                         <p key={index}>{exercise.name}</p>
