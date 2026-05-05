@@ -160,4 +160,14 @@ public class WorkoutService {
         workoutRepository.deleteById(workoutId);
     }
 
+    public Workout getWorkoutById(Long workoutId, Long userId) {
+        Workout workout = workoutRepository.findById(workoutId)
+                .orElseThrow(() -> new RuntimeException("Workout not found"));
+
+        if (!workout.getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized");
+        }
+        return workout;
+    }
+
 }

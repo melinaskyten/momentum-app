@@ -1,19 +1,35 @@
 import WorkoutCard from "../components/WorkoutCard.jsx";
 import '../css/WorkoutPage.css'
+import {useEffect, useState} from "react";
+import {getWorkouts} from "../api/workoutApi.js";
 
 function WorkoutsPage() {
-
-    const workouts = [
-        {id: 1, date: "2026-07-21"},
-        {id: 2, date: "2026-04-03"},
-        {id: 3, date: "2026-04-01"},
-        {id: 4, date: "2026-03-20"},
-        {id: 5, date: "2026-03-28"}
-    ]
 
     function onNewClick(){
         alert("Clicked")
     }
+
+    const [workouts, setWorkouts] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        async function fetchWorkouts() {
+            try {
+                const data = await getWorkouts()
+                console.log('Workouts: ', data)
+                setWorkouts(data)
+            } catch(err) {
+                setError('Could not fetch workouts')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchWorkouts();
+    }, []);
+
+    if (loading) return <p className='page-title'>Loading</p>
+    if (error) return <p className='page-title'>{error}</p>
 
     return (
         <div>

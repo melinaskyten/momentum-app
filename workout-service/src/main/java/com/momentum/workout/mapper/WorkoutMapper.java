@@ -15,7 +15,9 @@ public class WorkoutMapper {
     public WorkoutDTO toDTO(Workout workout) {
         WorkoutDTO workoutDto = new WorkoutDTO();
 
+        workoutDto.setId(workout.getId());
         workoutDto.setUserId(workout.getUserId());
+        workoutDto.setDate(workout.getDate());
 
         List<ExerciseDTO> exercises = workout.getExercises()
                 .stream()

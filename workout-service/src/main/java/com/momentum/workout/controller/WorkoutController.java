@@ -30,13 +30,20 @@ public class WorkoutController {
     }
 
     @GetMapping
-    public List<WorkoutDTO> getWorkoutByUserId(HttpServletRequest request) {
+    public List<WorkoutDTO> getWorkoutsByUserId(HttpServletRequest request) {
         Long userId = (Long) request.getAttribute("userId");
 
         return workoutService.getWorkoutByUserId(userId)
                 .stream()
                 .map(workoutMapper::toDTO)
                 .toList();
+    }
+
+    @GetMapping("/{id}")
+    public WorkoutDTO getWorkoutById(@PathVariable Long id, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        Workout workout = workoutService.getWorkoutById(id, userId);
+        return workoutMapper.toDTO(workout);
     }
 
     @PutMapping ("/{workoutId}")
