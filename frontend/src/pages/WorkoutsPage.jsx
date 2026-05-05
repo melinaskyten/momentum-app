@@ -2,11 +2,14 @@ import WorkoutCard from "../components/WorkoutCard.jsx";
 import '../css/WorkoutPage.css'
 import {useEffect, useState} from "react";
 import {getWorkouts} from "../api/workoutApi.js";
+import {useNavigate} from "react-router-dom";
 
 function WorkoutsPage() {
 
+    const navigate = useNavigate()
+
     function onNewClick(){
-        alert("Clicked")
+        navigate('/workouts/new')
     }
 
     const [workouts, setWorkouts] = useState([])

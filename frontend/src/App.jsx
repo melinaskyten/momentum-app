@@ -4,6 +4,7 @@ import WorkoutsPage from './pages/WorkoutsPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import ViewWorkoutPage from "./pages/ViewWorkoutPage.jsx"
 import NavBar from "./components/NavBar.jsx";
+import CreateWorkoutPage from "./pages/CreateWorkoutPage.jsx"
 import './App.css'
 
 function Layout() {
@@ -19,6 +20,7 @@ function Layout() {
                     <Route path="/workouts" element={<WorkoutsPage/>}/>
                     <Route path="/me" element={<ProfilePage/>}/>
                     <Route path="/workouts/:id" element={<ViewWorkoutPage/>}/>
+                    <Route path="/workouts/new" element={<CreateWorkoutPage/>}/>
                 </Routes>
             </div>
         </div>
