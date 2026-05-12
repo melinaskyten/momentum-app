@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ExerciseCard from '../components/ExerciseCard.jsx'
 import ExerciseSearchModal from '../components/ExerciseSearchModal.jsx'
-import { createWorkout } from '../api/workoutApi.js'
+import {createWorkout, getExerciseById} from '../api/workoutApi.js'
 import '../css/ViewWorkoutPage.css'
 
 function CreateWorkoutPage() {
@@ -10,11 +10,15 @@ function CreateWorkoutPage() {
     const [exercises, setExercises] = useState([])
     const [showModal, setShowModal] = useState(false)
 
-    function onAddExercise(exercise) {
+    async function onAddExercise(exercise) {
+        const fullExercise = await getExerciseById(exercise.exerciseId)
         setExercises(prev => [...prev, {
-            exerciseId: exercise.id,
-            name: exercise.name,
-            sets: [{ reps: '', weight: '' }]
+            exerciseId: fullExercise.exerciseId,
+            name: fullExercise.name,
+            bodyParts: fullExercise.bodyParts,
+            equipments: fullExercise.equipments,
+            instructions: fullExercise.instructions,
+            sets: [{reps: '', weight: ''}]
         }])
         setShowModal(false)
     }

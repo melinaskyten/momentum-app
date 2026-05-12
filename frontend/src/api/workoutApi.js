@@ -42,3 +42,20 @@ export const deleteWorkout = async(id) => {
             {headers: {Authorization: `Bearer ${getToken()}`}
             })
 }
+
+export const searchExercises = async(query) => {
+    const response =
+        await axios.get(`http://localhost:8081/api/exercises/search?search=${query}`,
+            {headers: {Authorization: `Bearer ${getToken()}`}
+            })
+    return response.data
+}
+
+export const getExerciseById = async(id) => {
+    const response = await axios.get(`http://localhost:8081/api/exercises/${id}`,
+        {
+            headers: {Authorization: `Bearer ${getToken()}`}
+        })
+
+    return response.data
+}

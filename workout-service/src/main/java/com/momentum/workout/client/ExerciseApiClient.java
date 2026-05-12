@@ -51,53 +51,53 @@ public class ExerciseApiClient {
     }
 
     public List<ExternalExerciseDTO> getExercises() {
-            ExternalExerciseResponse response = prepareRequest(uriBuilder ->
-                    uriBuilder
-                            .path("/exercises")
-                            .build())
-                    .bodyToMono(ExternalExerciseResponse.class)
-                    .timeout(Duration.ofSeconds(3))
-                    .retryWhen(
-                            Retry.backoff(3, Duration.ofMillis(500))
-                                    .filter(throwable -> throwable instanceof ExternalServerException))
-                    .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
-                    .block();
+        ExternalExerciseResponse response = prepareRequest(uriBuilder ->
+                uriBuilder
+                        .path("/exercises")
+                        .build())
+                .bodyToMono(ExternalExerciseResponse.class)
+                .timeout(Duration.ofSeconds(3))
+                .retryWhen(
+                        Retry.backoff(3, Duration.ofMillis(500))
+                                .filter(throwable -> throwable instanceof ExternalServerException))
+                .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
+                .block();
 
-            return response != null ? response.getData() : List.of();
+        return response != null ? response.getData() : List.of();
     }
 
     public List<ExternalExerciseDTO> getExercisesBySearch(String query) {
-            ExternalExerciseResponse response = prepareRequest(uriBuilder ->
-                    uriBuilder
-                            .path("/exercises")
-                            .queryParam("search", query)
-                            .build())
-                    .bodyToMono(ExternalExerciseResponse.class)
-                    .timeout(Duration.ofSeconds(3))
-                    .retryWhen(
-                            Retry.backoff(3, Duration.ofMillis(500))
-                                    .filter(throwable -> throwable instanceof ExternalServerException)
-                    )
-                    .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
-                    .block();
+        ExternalExerciseResponse response = prepareRequest(uriBuilder ->
+                uriBuilder
+                        .path("/exercises/search")
+                        .queryParam("search", query)
+                        .build())
+                .bodyToMono(ExternalExerciseResponse.class)
+                .timeout(Duration.ofSeconds(3))
+                .retryWhen(
+                        Retry.backoff(3, Duration.ofMillis(500))
+                                .filter(throwable -> throwable instanceof ExternalServerException)
+                )
+                .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
+                .block();
 
-            return response != null ? response.getData() : List.of();
+        return response != null ? response.getData() : List.of();
     }
 
     public ExternalExerciseDTO getExerciseById(String id) {
-            ExternalExerciseSingleResponse response = prepareRequest(uriBuilder ->
-                    uriBuilder
-                            .path("/exercises/{id}")
-                            .build(id))
-                    .bodyToMono(ExternalExerciseSingleResponse.class)
-                    .timeout(Duration.ofSeconds(3))
-                    .retryWhen(
-                            Retry.backoff(3, Duration.ofMillis(500))
-                                    .filter(throwable -> throwable instanceof ExternalServerException)
-                    )
-                    .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
-                    .block();
+        ExternalExerciseSingleResponse response = prepareRequest(uriBuilder ->
+                uriBuilder
+                        .path("/exercises/{id}")
+                        .build(id))
+                .bodyToMono(ExternalExerciseSingleResponse.class)
+                .timeout(Duration.ofSeconds(3))
+                .retryWhen(
+                        Retry.backoff(3, Duration.ofMillis(500))
+                                .filter(throwable -> throwable instanceof ExternalServerException)
+                )
+                .doOnError(e -> logger.error("API call failed when fetching exercises: {}", e.getMessage(), e))
+                .block();
 
-            return response != null ? response.getData() : null;
+        return response != null ? response.getData() : null;
     }
 }
