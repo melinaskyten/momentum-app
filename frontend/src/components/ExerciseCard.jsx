@@ -1,5 +1,6 @@
 import '../css/ExerciseCard.css'
-import {Trash2} from 'lucide-react'
+import { Trash2 } from 'lucide-react';
+import { X } from 'lucide-react';
 
 function ExerciseCard({exercise, onAddSet, onRemoveSet, onSetChange, onRemoveExercise}) {
     return (
@@ -7,7 +8,7 @@ function ExerciseCard({exercise, onAddSet, onRemoveSet, onSetChange, onRemoveExe
             <div className="exercise-card-header">
                 <h3 className="exercise-name">{exercise.name}</h3>
                 <button className="remove-exercise-btn" onClick={onRemoveExercise}>
-                    <Trash2 size={14}/>
+                    <Trash2 size={20}/>
                 </button>
             </div>
             <table className="sets-table">
@@ -45,7 +46,7 @@ function ExerciseCard({exercise, onAddSet, onRemoveSet, onSetChange, onRemoveExe
                             <button
                                 className="remove-set-btn"
                                 onClick={() => onRemoveSet(index)}>
-                                <Trash2 size={14}/>
+                                <X size={15}/>
                             </button>
                         </td>
                     </tr>

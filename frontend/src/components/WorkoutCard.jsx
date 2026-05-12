@@ -1,13 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import '../css/WorkoutCard.css'
-import {Trash2} from 'lucide-react'
+import { Trash2 } from 'lucide-react';
 
 function WorkoutCard({workout, onDelete}) {
     const navigate = useNavigate()
-
-    function onViewClick(){
-        navigate(`/workouts/${workout.id}`)
-    }
 
     const previewExercises = workout.exercises?.slice(0, 2) || []
 
@@ -25,8 +21,8 @@ function WorkoutCard({workout, onDelete}) {
                 <button className="view-btn" onClick={() => navigate(`/workouts/${workout.id}`)}>
                     View
                 </button>
-                <button className="delete-workout-btn" onClick={() => onDelete(workout.id)}>
-                    <Trash2 size={14}/>
+                <button className="remove-exercise-btn" onClick={onDelete}>
+                    <Trash2 size={20}/>
                 </button>
             </div>
         </div>
