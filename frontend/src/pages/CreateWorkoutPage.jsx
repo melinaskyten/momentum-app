@@ -18,7 +18,7 @@ function CreateWorkoutPage() {
             bodyParts: fullExercise.bodyParts,
             equipments: fullExercise.equipments,
             instructions: fullExercise.instructions,
-            sets: [{reps: '', weight: ''}]
+            sets: [{reps: 0, weight: 0}]
         }])
         setShowModal(false)
     }
@@ -26,7 +26,7 @@ function CreateWorkoutPage() {
     function onAddSet(exerciseIndex) {
         setExercises(prev => prev.map((ex, i) =>
             i === exerciseIndex
-                ? { ...ex, sets: [...ex.sets, { reps: '', weight: '' }] }
+                ? { ...ex, sets: [...ex.sets, { reps: 0, weight: 0}] }
                 : ex
         ))
     }
@@ -37,11 +37,26 @@ function CreateWorkoutPage() {
                 ? {
                     ...ex,
                     sets: ex.sets.map((set, j) =>
-                        j === setIndex ? { ...set, [field]: value } : set
+                        j === setIndex ? { ...set, [field]: field === 'weight'
+                                ? parseFloat(value) || 0
+                                : parseInt(value) || 0
+                        } : set
                     )
                 }
                 : ex
         ))
+    }
+
+    function onRemoveSet(exerciseIndex, setIndex) {
+        setExercises(prev => prev.map((ex, i) =>
+            i === exerciseIndex
+                ? { ...ex, sets: ex.sets.filter((_, j) => j !== setIndex) }
+                : ex
+        ))
+    }
+
+    function onRemoveExercise(exerciseIndex) {
+        setExercises(prev => prev.filter((_, i) => i !== exerciseIndex))
     }
 
     async function onSave() {
@@ -69,10 +84,11 @@ function CreateWorkoutPage() {
                             <ExerciseCard
                                 key={exerciseIndex}
                                 exercise={exercise}
-                                editable={true}
                                 onAddSet={() => onAddSet(exerciseIndex)}
+                                onRemoveSet={(setIndex) => onRemoveSet(exerciseIndex, setIndex)}
                                 onSetChange={(setIndex, field, value) =>
                                     onSetChange(exerciseIndex, setIndex, field, value)}
+                                onRemoveExercise={() => onRemoveExercise(exerciseIndex)}
                             />
                         ))}
                     </div>

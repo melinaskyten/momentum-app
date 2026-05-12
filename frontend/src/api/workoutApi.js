@@ -22,7 +22,7 @@ export const getWorkoutById = async(id) => {
 
 export const createWorkout = async(workout) => {
     const response =
-        await axios.get(WORKOUT_URL, workout,
+        await axios.post(WORKOUT_URL, workout,
             {headers: {Authorization: `Bearer ${getToken()}`}
             })
     return response.data
@@ -30,7 +30,7 @@ export const createWorkout = async(workout) => {
 
 export const updateWorkout = async(id, workout) => {
     const response =
-        await axios.put(`${WORKOUT_URL}/${id}`,
+        await axios.put(`${WORKOUT_URL}/${id}`, workout,
             {headers: {Authorization: `Bearer ${getToken()}`}
             })
     return response.data

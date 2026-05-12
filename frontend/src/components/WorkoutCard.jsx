@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import '../css/WorkoutCard.css'
+import {Trash2} from 'lucide-react'
 
-function WorkoutCard({workout}) {
+function WorkoutCard({workout, onDelete}) {
     const navigate = useNavigate()
 
     function onViewClick(){
@@ -20,11 +21,13 @@ function WorkoutCard({workout}) {
                     ))}
                 </div>
             </div>
-            <div>
-                <button className="view-btn" onClick={() => onViewClick()}>
+            <div className="workout-card-actions">
+                <button className="view-btn" onClick={() => navigate(`/workouts/${workout.id}`)}>
                     View
                 </button>
-
+                <button className="delete-workout-btn" onClick={() => onDelete(workout.id)}>
+                    <Trash2 size={14}/>
+                </button>
             </div>
         </div>
     )
