@@ -9,6 +9,30 @@
     gap: 12px;
 }
 
+.exercise-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #D9731A;
+    padding-bottom: 12px;
+}
+
+.remove-exercise-btn {
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.remove-exercise-btn:hover {
+    color: #a53225;
+}
+
 .exercise-name {
     font-family: "Bebas Neue", sans-serif;
     font-weight: 400;
@@ -16,13 +40,29 @@
     font-size: 18px;
     color: #ffffff;
     letter-spacing: 2px;
-    border-bottom: 1px solid #D9731A;
-    padding-bottom: 12px;
 }
 
 .sets-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.set-input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: #ffffff;
+    font-family: "Quicksand", sans-serif;
+    font-size: 14px;
+}
+
+.set-input:focus {
+    outline: none;
+    border-color: #D9731A;
 }
 
 .sets-table th {
@@ -49,6 +89,47 @@
     border-bottom: none;
 }
 
+.sets-table th:last-child,
+.sets-table td:last-child {
+    width: 15px;
+    text-align: center;
+}
+
 .sets-table tr:hover td {
     background-color: #2f2f2f;
+}
+
+.add-set-btn {
+    font-family: "Quicksand", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 5px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    transition: all 0.2s;
+}
+
+
+.add-set-btn:hover {
+    background-color: #D9731A;
+    color: #ffffff;
+    border: 1px solid #D9731A;
+}
+
+.remove-set-btn {
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    cursor: pointer;
+    font-size: 12px;
+    transition: color 0.2s;
+}
+
+.remove-set-btn:hover {
+    color: #D9731A;
 }

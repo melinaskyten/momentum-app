@@ -41,8 +41,33 @@
     text-transform: uppercase;
 }
 
+.workout-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delete-workout-btn {
+    background: none;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #aaaaaa;
+    padding: 6px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.delete-workout-btn:hover {
+    background-color: #a53225;
+    border-color: #a53225;
+    color: #ffffff;
+}
+
 .view-btn {
-    padding: 10px;
+    padding: 6px;
     border: 1px solid #444;
     border-radius: 4px;
     background: none;

@@ -1,12 +1,15 @@
 import WorkoutCard from "../components/WorkoutCard.jsx";
 import '../css/WorkoutPage.css'
 import {useEffect, useState} from "react";
-import {getWorkouts} from "../api/workoutApi.js";
+import {deleteWorkout, getWorkouts} from "../api/workoutApi.js";
+import {useNavigate} from "react-router-dom";
 
 function WorkoutsPage() {
 
+    const navigate = useNavigate()
+
     function onNewClick(){
-        alert("Clicked")
+        navigate('/workouts/new')
     }
 
     const [workouts, setWorkouts] = useState([])
@@ -28,6 +31,15 @@ function WorkoutsPage() {
         fetchWorkouts();
     }, []);
 
+    async function onDelete(id) {
+        try {
+            await deleteWorkout(id)
+            setWorkouts(prev => prev.filter(w => w.id !== id))
+        } catch(err) {
+            setError('Could not delete workout')
+        }
+    }
+
     if (loading) return <p className='page-title'>Loading</p>
     if (error) return <p className='page-title'>{error}</p>
 
@@ -39,7 +51,11 @@ function WorkoutsPage() {
             </div>
             <div className="workout-grid">
             {workouts.map((workout) => (
-                    <WorkoutCard workout={workout} key={workout.id}/>
+                    <WorkoutCard
+                        workout={workout}
+                        key={workout.id}
+                        onDelete={onDelete}
+                    />
                 ))}
             </div>
         </div>
