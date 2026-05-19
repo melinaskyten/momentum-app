@@ -99,7 +99,7 @@ function ExerciseSearchModal({ onClose, onAdd }) {
                         </div>
                     ))}
                     {!loading && hasSearched && query.length >= 2 && results.length === 0 && (
-                        <p className="moadl-loading">No exercise found</p>
+                        <p className="modal-loading">No exercise found</p>
                     )}
                 </div>
             </div>
