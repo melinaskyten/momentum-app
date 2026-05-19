@@ -21,7 +21,7 @@ function WorkoutCard({workout, onDelete}) {
                 <button className="view-btn" onClick={() => navigate(`/workouts/${workout.id}`)}>
                     View
                 </button>
-                <button className="remove-exercise-btn" onClick={onDelete}>
+                <button className="remove-exercise-btn" onClick={() => onDelete(workout.id)}>
                     <Trash2 size={20}/>
                 </button>
             </div>
